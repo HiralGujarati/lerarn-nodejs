@@ -261,9 +261,55 @@ form submitting using ejs
 // });
 // app.listen(3400);
 
+// import express from "express";
+// import { handleUsers } from "./controller/userController.js";
+// const app = express();
+// app.set('view engine', 'ejs')
+// app.get("/users", handleUsers)
+// app.listen(3200)
+
+// import express from "express";
+// const app = express();
+
+// app.get("/", (req, res) => {
+//   const users = ['anil', 'sidhu', 'jay', 'jon'];
+//   let data = `<ul>`;
+//   for (let i = 0; i < users.length; i++) {
+//     data += `<li><a href="user/${users[i]}">${users[i]}</a></li>`
+//     console.log(users[i]);
+
+//   }
+//   data += `</ul>`
+//   res.send(data);
+
+// })
+
+// app.get("/user/:name", (req, res) => {
+//   console.log("user is", req.params.name);
+//   const userName = req.params.name;
+//   res.send(`this is ${userName}'s profile page`)
+// })
+// app.listen(3200);
+
 import express from "express";
-import { handleUsers } from "./controller/userController.js";
+import userData from './users.json' with { type: 'json' }
+console.log(userData);
 const app = express();
-app.set('view engine', 'ejs')
-app.get("/users", handleUsers)
-app.listen(3200)
+
+app.get("/", (req, res) => {
+  res.send(userData);
+});
+
+app.get("/user/:id", (req, res) => {
+  const id = req.params.id;
+  console.log(id);
+  let filteredData = userData.filter((user) => user.id == id)
+  res.send(filteredData);
+})
+app.get("/username/:name", (req, res) => {
+  const name = req.params.name;
+  console.log(name);
+  let filteredData = userData.filter((user) => user.name.toLowerCase() == name.toLowerCase())
+  res.send(filteredData);
+})
+app.listen(3200);
