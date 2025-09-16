@@ -240,23 +240,30 @@ used in views folder with ejs extension
 /*
 form submitting using ejs
 */
+// import express from "express";
+
+// const app = express();
+// app.use(express.urlencoded({ extended: false }))
+// app.set('view engine', 'ejs')
+// app.get("/add-user", (req, res) => {
+//   res.render('addUsers');
+// });
+
+// app.post("/submit-user", (req, res) => {
+//   console.log(req.body);
+//   res.render('submitUsers', req.body);
+
+// });
+// app.get("/users", (req, res) => {
+//   const users = ['ana', 'sidhu', 'pitter', 'sam', 'john'];
+
+//   res.render('users', { users: users, isLogin: false });
+// });
+// app.listen(3400);
+
 import express from "express";
-
+import { handleUsers } from "./controller/userController.js";
 const app = express();
-app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs')
-app.get("/add-user", (req, res) => {
-  res.render('addUsers');
-});
-
-app.post("/submit-user", (req, res) => {
-  console.log(req.body);
-  res.render('submitUsers', req.body);
-
-});
-app.get("/users", (req, res) => {
-  const users = ['ana', 'sidhu', 'pitter', 'sam', 'john'];
-
-  res.render('users', { users: users, isLogin: false });
-});
-app.listen(3400);
+app.get("/users", handleUsers)
+app.listen(3200)
